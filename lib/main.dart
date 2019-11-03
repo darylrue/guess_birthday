@@ -58,49 +58,42 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
+    mainBloc.screenHeight = MediaQuery.of(context).size.height;
 
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            StreamBuilder(
-              stream: mainBloc.data$,
-              builder: (context, snapshot) {
-                if (!snapshot.hasData) {
-                  return Container();
+      body: SingleChildScrollView(
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              StreamBuilder(
+                stream: mainBloc.data$,
+                builder: (context, snapshot) {
+                  if (!snapshot.hasData) {
+                    return Container();
+                  }
+                  var guessDesc = snapshot.data.guessDesc;
+                  var guessDate = snapshot.data.guessDate;
+                  var correct = snapshot.data.correct;
+                  var error = snapshot.data.error;
+                  if (correct) {
+                    return Widgets.buildFireworks(theme: theme, guessDate: guessDate);
+                  }
+                  if (error != null) {
+                    return Widgets.buildErrorWidget(theme: theme, error: error);
+                  }
+                  return Widgets.buildGuessWidget(
+                      theme: theme,
+                      guessDesc: guessDesc,
+                      guessDate: guessDate
+                  );
                 }
-                var guessDesc = snapshot.data.guessDesc;
-                var guessDate = snapshot.data.guessDate;
-                var correct = snapshot.data.correct;
-                var error = snapshot.data.error;
-                if (correct) {
-                  return Widgets.buildFireworks(guessDate: guessDate);
-                }
-                if (error != null) {
-                  return Widgets.buildErrorWidget(error: error);
-                }
-                return Widgets.buildGuessWidget(
-                    guessDesc: guessDesc,
-                    guessDate: guessDate,
-                    buttonColor: theme.buttonColor,
-                    buttonTextStyle: theme.textTheme.button
-                );
-              }
-            ),
-            
-            SizedBox(height: 100.0),
-            FlatButton(
-              color: theme.buttonColor,
-              child: Text('Start over', style: theme.textTheme.button),
-              onPressed: () {
-                mainBloc.reset();
-              },
-            )
-          ],
+              ),
+            ],
+          ),
         ),
       ),
     );
