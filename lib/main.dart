@@ -80,7 +80,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   var correct = snapshot.data.correct;
                   var error = snapshot.data.error;
                   if (correct) {
-                    return Widgets.buildFireworks(theme: theme, guessDate: guessDate);
+                    return Widgets.buildFireworks(theme: theme, guessDesc: guessDesc, guessDate: guessDate);
                   }
                   if (error != null) {
                     return Widgets.buildErrorWidget(theme: theme, error: error);

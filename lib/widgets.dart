@@ -64,7 +64,7 @@ class Widgets {
     );
   }
   
-  static Widget buildFireworks({ThemeData theme, String guessDate}) {
+  static Widget buildFireworks({ThemeData theme, String guessDesc, String guessDate}) {
     var topSpacing = mainBloc.screenHeight > 600 ? 35.0 : 15.0;
     return Column(
       children: [
@@ -77,7 +77,13 @@ class Widgets {
           fontWeight: FontWeight.bold,
           color: Colors.cyanAccent,
         )),
-        SizedBox(height: 90.0),
+        SizedBox(height: 15.0),
+        Text('$guessDesc guess!', style: TextStyle(
+          fontSize: 35.0,
+          fontStyle: FontStyle.italic,
+          color: Colors.white,
+        )),
+        SizedBox(height: 70.0),
         startOverButton(theme: theme),
         SizedBox(height: 20.0)
       ]

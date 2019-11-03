@@ -61,8 +61,9 @@ class MainBloc {
   }
   
   void correct() {
-    var dataObj = MainPageDataObj(guessDate: DateService.dayToDate(guess), correct: true);
-    this._mainPageData.sink.add(dataObj);
+    var dataObj = MainPageDataObj(guessDesc: this.guessDesc[this.guessNum], 
+        guessDate: DateService.dayToDate(guess), correct: true);
+    _send(dataObj);
   }
   
   void reset() {
