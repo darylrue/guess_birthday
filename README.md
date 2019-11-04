@@ -1,3 +1,3 @@
 # Guess My Birthday
 
-A demonstration of the binary search algorithm
+A Flutter app that demonstrates the binary search algorithm by guessing a birthday in less than ten guesses.
